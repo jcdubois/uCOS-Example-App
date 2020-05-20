@@ -1,0 +1,18 @@
+[submodule "uC-OS3"]
+	path = Micrium/Software/uCOS-III
+	url = https://github.com/jcdubois/uC-OS3.git
+[submodule "uC-DHCPc"]
+	path = Micrium/Software/uC-DHCPc
+	url = https://github.com/jcdubois/uC-DHCPc.git
+[submodule "uC-TCP-IP"]
+	path = Micrium/Software/uC-TCP-IP
+	url = https://github.com/jcdubois/uC-TCP-IP.git
+[submodule "uC-LIB"]
+	path = Micrium/Software/uC-LIB
+	url = https://github.com/jcdubois/uC-LIB.git
+[submodule "uC-CPU"]
+	path = Micrium/Software/uC-CPU
+	url = https://github.com/jcdubois/uC-CPU.git
+[submodule "uC-Common"]
+	path = Micrium/Software/uC-Common
+	url = https://github.com/jcdubois/uC-Common.git
