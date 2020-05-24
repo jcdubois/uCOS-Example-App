@@ -97,7 +97,7 @@
 #include  <IP/IPv4/net_ipv4.h>
 #include  <IP/IPv6/net_ipv6.h>
 #include  <Dev/Ether/MACNet/net_dev_macnet.h>
-//#include  <Dev/Ether/PHY/KSZ8081RNB/net_phy_ksz8081rnb.h>
+/* #include  <Dev/Ether/PHY/KSZ8081RNB/net_phy_ksz8081rnb.h> */
 #include  <Dev/Ether/PHY/KSZ9021r/net_phy_ksz9021r.h>
 #endif
 
