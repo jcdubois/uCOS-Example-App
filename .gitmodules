@@ -16,3 +16,6 @@
 [submodule "uC-Common"]
 	path = Micrium/Software/uC-Common
 	url = https://github.com/jcdubois/uC-Common.git
+[submodule "printf"]
+	path = printf
+	url = https://github.com/jcdubois/printf.git
