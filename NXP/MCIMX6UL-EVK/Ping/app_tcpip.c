@@ -387,7 +387,7 @@ static  void  AppTCPIP_Init_ENET1 (NET_ERR  *p_err)
                              (void              *)&NetDev_BSP_MACNet_1,          /* Device BSP structure                */
                              (NET_DEV_CFG_ETHER *)&NetDev_Cfg_MACNet_ETHER1,     /* Device Configuration structure      */
                              /*(void              *)&NetPhy_API_KSZ8081RNB,*/        /* PHY API structure                   */
-                             (void              *)&NetPhy_API_ksz9021r,          /* PHY API structure                   */
+                             (void              *)&NetPhy_API_Generic,          /* PHY API structure                   */
                              (void              *)&NetPhy_Cfg_MACNet_ETHER1,     /* PHY Configuration structure         */
                                                   &net_err);                     /* Return error variable               */
 
@@ -490,7 +490,7 @@ static  void  AppTCPIP_Init_ENET2 (NET_ERR  *p_err)
                              (void              *)&NetDev_BSP_MACNet_2,          /* Device BSP structure                */
                              (NET_DEV_CFG_ETHER *)&NetDev_Cfg_MACNet_ETHER2,     /* Device Configuration structure      */
                              /*(void              *)&NetPhy_API_KSZ8081RNB,*/        /* PHY API structure                   */
-                             (void              *)&NetPhy_API_ksz9021r,          /* PHY API structure                   */
+                             (void              *)&NetPhy_API_Generic,          /* PHY API structure                   */
                              (void              *)&NetPhy_Cfg_MACNet_ETHER2,     /* PHY Configuration structure         */
                                                   &net_err);                     /* Return error variable               */
 
