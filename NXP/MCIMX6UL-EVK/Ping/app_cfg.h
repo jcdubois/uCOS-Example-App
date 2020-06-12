@@ -44,6 +44,7 @@
 #include  <cpu.h>
 #include  <stdio.h>
 
+#include  <printf.h>
 
 /*
 *********************************************************************************************************
@@ -120,7 +121,7 @@
 #define  TRACE_LEVEL_DBG                                   2
 #endif
 
-#define  APP_CFG_TRACE_LEVEL                       TRACE_LEVEL_OFF
+#define  APP_CFG_TRACE_LEVEL                       TRACE_LEVEL_DBG
 #define  APP_CFG_TRACE                             printf
 
 #define  APP_TRACE_INFO(x)               ((APP_CFG_TRACE_LEVEL >= TRACE_LEVEL_INFO)  ? (void)(APP_CFG_TRACE x) : (void)0)
