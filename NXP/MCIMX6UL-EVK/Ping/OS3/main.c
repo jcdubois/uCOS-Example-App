@@ -60,6 +60,7 @@
 #include  <bsp_gpio.h>
 #include  <bsp_sys.h>
 #include  <bsp_int.h>
+#include  <bsp_ser.h>
 
 
 /*
@@ -88,6 +89,15 @@ static  OS_TCB   StartupTaskTCB;
 
 static  void  StartupTask(void  *p_arg);
 
+long long __aeabi_ldiv0(long long r)
+{
+	while(1);
+}
+
+void _putchar(char character)
+{
+	BSP_Ser_WrByte(character);
+}
 
 /*
 *********************************************************************************************************
