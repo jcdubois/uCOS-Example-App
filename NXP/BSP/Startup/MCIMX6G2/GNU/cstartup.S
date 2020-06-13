@@ -21,15 +21,16 @@
 #define CPSR_MODE_UNDEFINED                             0x0000001b
 #define CPSR_MODE_SYSTEM                                0x0000001f
 
-#define CPSR_FIQ_DISABLED                               (1 << 6)
-#define CPSR_IRQ_DISABLED                               (1 << 7)
-
-	/* Exception vector start. */
 	.section .entry, "ax", %progbits
 	.globl _start_vect
 	.globl _start
 _start_vect:
 _start:
+
+/****************************************************************************
+ *				    Exception Vector Table
+ ****************************************************************************/
+
 	ldr	pc, __reset
 	ldr	pc, __undefined_instruction
 	ldr	pc, __software_interrupt
@@ -38,6 +39,7 @@ _start:
 	ldr	pc, __not_used
 	ldr	pc, __irq
 	ldr	pc, __fiq
+
 __reset:
 	.word _reset
 __undefined_instruction:
@@ -56,8 +58,6 @@ __fiq:
 	.word OS_CPU_ARM_ExceptFiqHndlr
 	.global _end_vect
 _end_vect:
-	/* We should never reach here */
-	b	.
 
 	/* Exception stacks */
 __svc_stack_end:
@@ -82,9 +82,9 @@ __bss_end:
 	.globl _reset
 _reset:
 
-/********************************************************************************************************
+/****************************************************************************
  *				    STACK POINTER INITIALIZATION
- ********************************************************************************************************/
+ ****************************************************************************/
 
 	/* Disable IRQ & FIQ */
 	cpsid	if
@@ -112,11 +112,17 @@ _reset:
 	/* get back to supervisor mode (default) */
 	cps	#CPSR_MODE_SUPERVISOR
 
-	/* Set exception vector base (VBAR) address */
+/****************************************************************************
+ *				    Set exception vector base (VBAR) address
+ ****************************************************************************/
+
 	ldr	r0, __start_vect
 	mcr	p15, 0, r0, c12, c0, 0
 
-	/* Zero-out bss section */
+/****************************************************************************
+ *				    Zero-out bss section
+ ****************************************************************************/
+
 	mov	r0, #0
 	ldr	r1, __bss_start
 	ldr	r2, __bss_end
@@ -126,7 +132,10 @@ _bss_zero:
 	cmp	r1, r2
 	blt	_bss_zero
 
-	/* Jump to main */
+/****************************************************************************
+ *				    Jump to main
+ ****************************************************************************/
+
 	b	main
 	/* We should never reach here */
 	b	.
