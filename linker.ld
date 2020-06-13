@@ -4,83 +4,98 @@ ENTRY(_start)
 
 SECTIONS
 {
-	. = 0x80000000;
+    . = 0x80000000;
 
-	. = ALIGN(0x1000);
+    /* text/execute section */
 
-	.text :
-	{
-		*(.entry*)
-		*(.text*)
-	}
+    . = ALIGN(0x1000);
 
-	. = ALIGN(0x1000);
+    .text :
+    {
+        *(.entry*)
+        *(.text*)
+    }
 
-	.rodata :
-	{
-		*(.rodata*);
-	}
+    /* Read only data section */
 
-	. = ALIGN(0x1000);
+    . = ALIGN(0x1000);
 
-	.data :
-	{
-		*(.data*);
-	}
+    .rodata :
+    {
+        *(.rodata*);
+    }
 
-	. = ALIGN(0x1000);
+    /* Read/write data section */
 
-	.bss (NOLOAD) :
-	{
-		PROVIDE(_bss_start = .);
-		*(.bss*)
-		*(COMMON)
-		PROVIDE(_bss_end = .);
-	}
+    . = ALIGN(0x1000);
 
-	. = ALIGN(0x1000);
+    .data :
+    {
+        *(.data*);
+    }
 
-	.svc_stack :
-	{
-		PROVIDE(_svc_stack_start = .);
-		. = . + (0x1000);
-		. = ALIGN(8);
-		PROVIDE(_svc_stack_end = .);
-	}
+    /* unintialized read/write data section */
 
-	.abt_stack :
-	{
-		PROVIDE(_abt_stack_start = .);
-		. = . + (0x1000);
-		. = ALIGN(8);
-		PROVIDE(_abt_stack_end = .);
-	}
+    . = ALIGN(0x1000);
 
-	.und_stack :
-	{
-																	PROVIDE(_und_stack_start = .);
-		. = . + (0x1000);
-		. = ALIGN(8);
-		PROVIDE(_und_stack_end = .);
-	}
+    .bss (NOLOAD) :
+    {
+        PROVIDE(_bss_start = .);
+        *(.bss*)
+        *(COMMON)
+        . = ALIGN(8);
+        PROVIDE(_bss_end = .);
+    }
 
-	.irq_stack :
-	{
-		PROVIDE(_irq_stack_start = .);
-		. = . + (0x1000);
-		. = ALIGN(8);
-		PROVIDE(_irq_stack_end = .);
-	}
+    /* Supervisor stack */
 
-	.fiq_stack :
-	{
-		PROVIDE(_fiq_stack_start = .);
-		. = . + (0x1000);
-		. = ALIGN(8);
-		PROVIDE(_fiq_stack_end = .);
-	}
+    . = ALIGN(0x1000);
 
-	/* End of the read-write data sections */
+    .svc_stack (NOLOAD) :
+    {
+        PROVIDE(_svc_stack_start = .);
+        . = . + (0x1000);
+        . = ALIGN(8);
+        PROVIDE(_svc_stack_end = .);
+    }
 
-	. = ALIGN(0x1000);
+    /* Abort stack */
+    
+    .abt_stack (NOLOAD) :
+    {
+        PROVIDE(_abt_stack_start = .);
+        . = . + (0x1000);
+        . = ALIGN(8);
+        PROVIDE(_abt_stack_end = .);
+    }
+
+    /* Undefined stack */
+
+    .und_stack (NOLOAD) :
+    {
+        PROVIDE(_und_stack_start = .);
+        . = . + (0x1000);
+        . = ALIGN(8);
+        PROVIDE(_und_stack_end = .);
+    }
+
+    /* IRQ stack */
+
+    .irq_stack (NOLOAD) :
+    {
+        PROVIDE(_irq_stack_start = .);
+        . = . + (0x1000);
+        . = ALIGN(8);
+        PROVIDE(_irq_stack_end = .);
+    }
+
+    /* FIQ stack */
+
+    .fiq_stack (NOLOAD) :
+    {
+        PROVIDE(_fiq_stack_start = .);
+        . = . + (0x1000);
+        . = ALIGN(8);
+        PROVIDE(_fiq_stack_end = .);
+    }
 }
