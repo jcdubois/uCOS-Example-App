@@ -79,7 +79,10 @@ extern  "C" {                                                   /* See Note #1. 
 */
 
                                                                 /* ---------------- IOMUXC RREGISTERS ----------------- */
-#define  BSP_IOMUC_BASE_ADDR                             (CPU_INT32U)(0x020E0000u)
+
+extern char _iomux_start;
+
+#define  BSP_IOMUC_BASE_ADDR                             (CPU_INT32U)(&_iomux_start)
 
 #define  BSP_IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO00            (BSP_IOMUC_BASE_ADDR + 0x005Cu)
 #define  BSP_IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO01            (BSP_IOMUC_BASE_ADDR + 0x0060u)

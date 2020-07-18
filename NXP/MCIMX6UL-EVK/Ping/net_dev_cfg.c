@@ -144,6 +144,8 @@
 
 #ifdef  NET_IF_ETHER_MODULE_EN
 
+extern char _enet1_start;
+extern char _enet2_start;
                                     /* ----------------- EXAMPLE ETHERNET DEVICE A, #1 CONFIGURATION ------------------ */
 
 const  NET_DEV_CFG_ETHER  NetDev_Cfg_MACNet_ETHER1 = {
@@ -179,7 +181,7 @@ const  NET_DEV_CFG_ETHER  NetDev_Cfg_MACNet_ETHER1 = {
             30u,                    /* Desired number of device's transmit descriptors.                                 */
 
 
-    0x02188000u,                    /* Base address   of device's hardware/registers.                                   */
+    (CPU_ADDR)(&_enet1_start),      /* Base address   of device's hardware/registers.                                   */
 
              0u,                    /* Size           of device's data bus (in bits), if available.                     */
 
@@ -242,7 +244,7 @@ const  NET_DEV_CFG_ETHER  NetDev_Cfg_MACNet_ETHER2 = {
              10u,                   /* Desired number of device's transmit descriptors.                                 */
 
 
-     0x020B4000u,                   /* Base address   of device's hardware/registers.                                   */
+    (CPU_ADDR)(&_enet2_start),      /* Base address   of device's hardware/registers.                                   */
 
               0u,                   /* Size           of device's data bus (in bits), if available.                     */
 

@@ -78,15 +78,18 @@ extern  "C" {                                                   /* See Note #1. 
 *********************************************************************************************************
 */
 
-                                                                /* Clock gate register addresses.                       */
-#define  BSP_CCM_CCGR0                               0x020C4068
-#define  BSP_CCM_CCGR1                               0x020C406C
-#define  BSP_CCM_CCGR2                               0x020C4070
-#define  BSP_CCM_CCGR3                               0x020C4074
-#define  BSP_CCM_CCGR4                               0x020C4078
-#define  BSP_CCM_CCGR5                               0x020C407C
-#define  BSP_CCM_CCGR6                               0x020C4080
-                                                                /* Clock gate masks. (Bit-fields within CGR.)           */
+/* Clock gate register addresses.                       */
+
+#include <bsp_sys.h>
+
+#define  BSP_CCM_CCGR0                               (BSP_CCM_BASE_ADDR + 0x68)
+#define  BSP_CCM_CCGR1                               (BSP_CCM_BASE_ADDR + 0x6C)
+#define  BSP_CCM_CCGR2                               (BSP_CCM_BASE_ADDR + 0x70)
+#define  BSP_CCM_CCGR3                               (BSP_CCM_BASE_ADDR + 0x74)
+#define  BSP_CCM_CCGR4                               (BSP_CCM_BASE_ADDR + 0x78)
+#define  BSP_CCM_CCGR5                               (BSP_CCM_BASE_ADDR + 0x7C)
+#define  BSP_CCM_CCGR6                               (BSP_CCM_BASE_ADDR + 0x80)
+/* Clock gate masks. (Bit-fields within CGR.)           */
 #define  BSP_CCM_CLK_GATE_00_MASK                    0x00000003
 #define  BSP_CCM_CLK_GATE_01_MASK                    0x0000000C
 #define  BSP_CCM_CLK_GATE_02_MASK                    0x00000030

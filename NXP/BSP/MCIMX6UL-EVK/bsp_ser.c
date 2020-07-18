@@ -55,7 +55,9 @@
 *********************************************************************************************************
 */
 
-#define  IMX_UART1_BASE (0x02020000u)
+extern char _uart_start;
+
+#define  IMX_UART1_BASE ((CPU_ADDR)(&_uart_start))
 
 #define  IMX6_UART_UART1_UCRX (*((CPU_REG32 *)(IMX_UART1_BASE + 0x00)))
 #define  IMX6_UART_UART1_UCTX (*((CPU_REG32 *)(IMX_UART1_BASE + 0x40)))

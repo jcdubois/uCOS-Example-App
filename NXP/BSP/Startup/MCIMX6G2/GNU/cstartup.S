@@ -1,16 +1,16 @@
 
-/********************************************************************************************************
- *				    EXCEPTION VECTORS & STARTUP CODE
+/****************************************************************************
+ *                    EXCEPTION VECTORS & STARTUP CODE
  *
  * File      : cstartup.s
  * For       : Cortex-A7 on the Freescale MCIMX6G
  * Toolchain : GNU
- ********************************************************************************************************/
+ ****************************************************************************/
 
 
-/********************************************************************************************************
- * 					   MACROS AND DEFINIITIONS
- ********************************************************************************************************/
+/****************************************************************************
+ *                    MACROS AND DEFINIITIONS
+ ****************************************************************************/
 
 #define CPSR_MODE_USER                                  0x00000010
 #define CPSR_MODE_FIQ                                   0x00000011
@@ -21,77 +21,81 @@
 #define CPSR_MODE_UNDEFINED                             0x0000001b
 #define CPSR_MODE_SYSTEM                                0x0000001f
 
-	.section .entry, "ax", %progbits
-	.globl _start_vect
-	.globl _start
+    .section .entry, "ax", %progbits
+    .globl _start_vect
+    .globl _start
 _start_vect:
 _start:
 
 /****************************************************************************
- *				    Exception Vector Table
+ *                    Exception Vector Table
  ****************************************************************************/
 
-	ldr	pc, __reset
-	ldr	pc, __undefined_instruction
-	ldr	pc, __software_interrupt
-	ldr	pc, __prefetch_abort
-	ldr	pc, __data_abort
-	ldr	pc, __not_used
-	ldr	pc, __irq
-	ldr	pc, __fiq
+    ldr pc, __reset
+    ldr pc, __undefined_instruction
+    ldr pc, __software_interrupt
+    ldr pc, __prefetch_abort
+    ldr pc, __data_abort
+    ldr pc, __not_used
+    ldr pc, __irq
+    ldr pc, __fiq
 
 __reset:
-	.word _reset
+    .word _reset
 __undefined_instruction:
-	.word OS_CPU_ARM_ExceptUndefInstrHndlr
+    .word OS_CPU_ARM_ExceptUndefInstrHndlr
 __software_interrupt:
-	.word OS_CPU_ARM_ExceptSwiHndlr
+    .word OS_CPU_ARM_ExceptSwiHndlr
 __prefetch_abort:
-	.word OS_CPU_ARM_ExceptPrefetchAbortHndlr
+    .word OS_CPU_ARM_ExceptPrefetchAbortHndlr
 __data_abort:
-	.word OS_CPU_ARM_ExceptDataAbortHndlr
+    .word OS_CPU_ARM_ExceptDataAbortHndlr
 __not_used:
-	.word 0
+    .word 0
 __irq:
-	.word OS_CPU_ARM_ExceptIrqHndlr
+    .word OS_CPU_ARM_ExceptIrqHndlr
 __fiq:
-	.word OS_CPU_ARM_ExceptFiqHndlr
-	.global _end_vect
+    .word OS_CPU_ARM_ExceptFiqHndlr
+    .global _end_vect
 _end_vect:
 
-	/* Exception stacks */
+    /* Exception stacks */
+__user_stack_end:
+    .word _user_stack_end
 __svc_stack_end:
-	.word _svc_stack_end
+    .word _svc_stack_end
 __und_stack_end:
-	.word _und_stack_end
+    .word _und_stack_end
 __abt_stack_end:
-	.word _abt_stack_end
+    .word _abt_stack_end
 __irq_stack_end:
-	.word _irq_stack_end
+    .word _irq_stack_end
 __fiq_stack_end:
-	.word _fiq_stack_end
+    .word _fiq_stack_end
 __start_vect:
-	.word _start_vect
+    .word _start_vect
+__gic_start:
+    .word _gic_start
 
-	/* bss adresses */
+    /* bss adresses */
 __bss_start:
     .word _bss_start
 __bss_end:
     .word _bss_end
 
-	.globl _reset
+    .globl _reset
 _reset:
 
 /****************************************************************************
- *				    STACK POINTER INITIALIZATION
+ *                    STACK POINTER INITIALIZATION
  ****************************************************************************/
 
-	/* Disable IRQ & FIQ */
-	cpsid	if
+    /* Disable IRQ & FIQ */
+    cpsid if
 
     /* get the secure configuration */
     mrc p15, 0, r0, c1, c1, 0
-    /* are we in secure mode */
+    /* are we in secure mode. Check the NS bit */
     and r1, r0, #1
     cmp r1, #0
 
@@ -104,10 +108,10 @@ _reset:
      */
 
     /* iterate over all GIC interrupt registers */
-    mov r0, #0
-    mvn r1, #0
-    mov r2, #4096
-    movt r2, #160
+    mov r0, #0          /* 0x00000000 */
+    mvn r1, #0          /* 0xffffffff */
+    ldr r2, __gic_start
+    add r2, r2, #4096
     b _register_loop_end
 
 _register_loop_begin:
@@ -137,19 +141,20 @@ _register_loop_end:
     bcs _register_loop_begin
 
     /* Set the priority mask */
-    movw r2, #8196
-    movt r2, #160
+    ldr r2, __gic_start
+    add r2, r2, #8192
+    add r2, r2, #4
     mov r1, #128
     str r1, [r2]
 
     /* enable the GIC */
-    mov r2, #8192
-    movt r2, #160
+    ldr r2, __gic_start
+    add r2, r2, #8192
     mov r1, #11
     str r1, [r2]
 
-    mov r2, #4096
-    movt r2, #160
+    ldr r2, __gic_start
+    add r2, r2, #4096
     ldr r1, [r2]
     orr r1, r1, #3
     str r1, [r2]
@@ -164,53 +169,51 @@ _register_loop_end:
     mcr p15, 0, r0, c1, c1, 0
 
 _non_secure:
-	/* load supervisor stack */
-	cps	#CPSR_MODE_SUPERVISOR
-	ldr	sp, __svc_stack_end
+    /* Set the exception vector (VBAR) */
+    ldr r0, __start_vect
+    mcr p15, 0, r0, c12, c0, 0
 
-	/* load undefined instruction exception stack */
-	cps	#CPSR_MODE_UNDEFINED
-	ldr	sp, __und_stack_end
+    /* load supervisor stack */
+    cps #CPSR_MODE_SUPERVISOR
+    ldr sp, __svc_stack_end
 
-	/* load data abort exception stack */
-	cps	#CPSR_MODE_ABORT
-	ldr	sp, __abt_stack_end
+    /* load undefined instruction exception stack */
+    cps #CPSR_MODE_UNDEFINED
+    ldr sp, __und_stack_end
 
-	/* load interrupt stack */
-	cps	#CPSR_MODE_IRQ
-	ldr	sp, __irq_stack_end
+    /* load data abort exception stack */
+    cps #CPSR_MODE_ABORT
+    ldr sp, __abt_stack_end
 
-	/* load FIQ stack */
-	cps	#CPSR_MODE_FIQ
-	ldr	sp, __fiq_stack_end
+    /* load interrupt stack */
+    cps #CPSR_MODE_IRQ
+    ldr sp, __irq_stack_end
 
-	/* get back to supervisor mode (default) */
-	cps	#CPSR_MODE_SUPERVISOR
+    /* load FIQ stack */
+    cps #CPSR_MODE_FIQ
+    ldr sp, __fiq_stack_end
 
-/****************************************************************************
- *				    Set exception vector base (VBAR) address
- ****************************************************************************/
-
-	ldr	r0, __start_vect
-	mcr	p15, 0, r0, c12, c0, 0
+    /* load SYS stack */
+    cps #CPSR_MODE_SYSTEM
+    ldr sp, __user_stack_end
 
 /****************************************************************************
- *				    Zero-out bss section
+ *                    Zero-out bss section
  ****************************************************************************/
 
-	mov	r0, #0
-	ldr	r1, __bss_start
-	ldr	r2, __bss_end
+    mov r0, #0
+    ldr r1, __bss_start
+    ldr r2, __bss_end
 
 _bss_zero:
-	str	r0, [r1], #4
-	cmp	r1, r2
-	blt	_bss_zero
+    str r0, [r1], #4
+    cmp r1, r2
+    blt _bss_zero
 
 /****************************************************************************
- *				    Jump to main
+ *                    Jump to main
  ****************************************************************************/
 
-	b	main
-	/* We should never reach here */
-	b	.
+    b main
+    /* We should never reach here */
+    b .

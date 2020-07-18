@@ -87,18 +87,26 @@ extern  "C" {                                                   /* See Note #1. 
 *********************************************************************************************************
 */
 
-#define  BSP_CCM_BASE_ADDR                           (CPU_INT32U)(0x020C4000u)
+extern char _ccm_start;
+
+#define  BSP_CCM_BASE_ADDR                           (CPU_INT32U)(&_ccm_start)
 #define  BSP_REG_CCM_CACRR                           (BSP_CCM_BASE_ADDR + 0x0010u)
 #define  BSP_REG_CCM_CCGR1                           (BSP_CCM_BASE_ADDR + 0x006Cu)
 
-#define  BSP_CCM_ANALOG_BASE_ADDR                    (CPU_INT32U)(0x020C8000u)
+extern char _analog_start;
+
+#define  BSP_CCM_ANALOG_BASE_ADDR                  (CPU_INT32U)(&_analog_start)
 #define  BSP_REG_CCM_ANALOG_PLL_ARM                  (BSP_CCM_ANALOG_BASE_ADDR + 0x0000u)
 #define  BSP_REG_CCM_ANALOG_PLL_SYS                  (BSP_CCM_ANALOG_BASE_ADDR + 0x0030u)
 
 
-#define  BSP_SYS_ARM_MP_BASE_ADDR                    (CPU_INT32U)(0x00A00000u)
+extern char _gic_start;
 
-#define  BSP_SYS_GPT1_BASE_ADDR                      (CPU_INT32U)(0x02098000u)
+#define  BSP_SYS_ARM_MP_BASE_ADDR                    (CPU_INT32U)(&_gic_start)
+
+extern char _gpt1_start;
+
+#define  BSP_SYS_GPT1_BASE_ADDR                      (CPU_INT32U)(&_gpt1_start)
 #define  BSP_REG_GPT1_CR                             (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0000u)))
 #define  BSP_REG_GPT1_PR                             (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0004u)))
 #define  BSP_REG_GPT1_SR                             (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0008u)))
@@ -110,7 +118,9 @@ extern  "C" {                                                   /* See Note #1. 
 #define  BSP_REG_GPT1_ICR2                           (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0020u)))
 #define  BSP_REG_GPT1_CNT                            (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0024u)))
 
-#define  BSP_SYS_GPT2_BASE_ADDR                      (CPU_INT32U)(0x020E8000u)
+extern char _gpt2_start;
+
+#define  BSP_SYS_GPT2_BASE_ADDR                      (CPU_INT32U)(&_gpt2_start)
 #define  BSP_REG_GPT2_CR                             (*((CPU_REG32 *)(BSP_SYS_GPT2_BASE_ADDR + 0x0000u)))
 #define  BSP_REG_GPT2_PR                             (*((CPU_REG32 *)(BSP_SYS_GPT2_BASE_ADDR + 0x0004u)))
 #define  BSP_REG_GPT2_SR                             (*((CPU_REG32 *)(BSP_SYS_GPT2_BASE_ADDR + 0x0008u)))
