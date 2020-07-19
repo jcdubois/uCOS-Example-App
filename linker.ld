@@ -25,7 +25,7 @@ SECTIONS
 {
     /* text/execute section */
 
-    .text : ALIGN(4K)
+    .text :
     {
         *(.entry*)
         *(.text*)
@@ -33,21 +33,21 @@ SECTIONS
 
     /* Read only data section */
 
-    .rodata . + (4K) : ALIGN(4K)
+    .rodata (ALIGN(4K) + (4K)) :
     {
         *(.rodata*);
     } >ram
 
     /* Read/write data section */
 
-    .data . + (4K) : ALIGN(4K)
+    .data (ALIGN(4K) + (4K)) :
     {
         *(.data*);
     } >ram
 
     /* unintialized read/write data section */
 
-    .bss . + (4K) (NOLOAD) : ALIGN(4K)
+    .bss (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         PROVIDE(_bss_start = .);
         *(.bss*)
@@ -57,148 +57,148 @@ SECTIONS
     } >ram
 
     /* User stack */
-    _user_stack_end = LOADADDR(.user_stack) + SIZEOF(.user_stack);
+    _user_stack_end = ADDR(.user_stack) + SIZEOF(.user_stack);
 
-    .user_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .user_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
     /* Supervisor stack */
-    _svc_stack_end = LOADADDR(.svc_stack) + SIZEOF(.svc_stack);
+    _svc_stack_end = ADDR(.svc_stack) + SIZEOF(.svc_stack);
 
-    .svc_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .svc_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
     /* Abort stack */
-    _abt_stack_end = LOADADDR(.abt_stack) + SIZEOF(.abt_stack);
+    _abt_stack_end = ADDR(.abt_stack) + SIZEOF(.abt_stack);
 
-    .abt_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .abt_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
     /* Undefined stack */
-    _und_stack_end = LOADADDR(.und_stack) + SIZEOF(.und_stack);
+    _und_stack_end = ADDR(.und_stack) + SIZEOF(.und_stack);
 
-    .und_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .und_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
     /* IRQ stack */
-    _irq_stack_end = LOADADDR(.irq_stack) + SIZEOF(.irq_stack);
+    _irq_stack_end = ADDR(.irq_stack) + SIZEOF(.irq_stack);
 
-    .irq_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .irq_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
     /* FIQ stack */
-    _fiq_stack_end = LOADADDR(.fiq_stack) + SIZEOF(.fiq_stack);
+    _fiq_stack_end = ADDR(.fiq_stack) + SIZEOF(.fiq_stack);
 
-    .fiq_stack . + (4K) (NOLOAD) : ALIGN(4K)
+    .fiq_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
         . = . + (4K);
     } >ram
 
-    _gic_start = LOADADDR(.gic);
+    _gic_start = ADDR(.gic);
 
-    .gic (NOLOAD) : ALIGN(4K)
+    .gic (NOLOAD) :
     {
         . = . + (32K);
     } >gic
 
-    _uart_start = LOADADDR(.uart);
+    _uart_start = ADDR(.uart);
 
-    .uart (NOLOAD) : ALIGN(4K)
+    .uart (NOLOAD) :
     {
         . = . + (4K);
     } >uart
 
-    _gpt1_start = LOADADDR(.gpt1);
+    _gpt1_start = ADDR(.gpt1);
 
-    .gpt1 (NOLOAD) : ALIGN(4K)
+    .gpt1 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpt1
 
-    _gpt2_start = LOADADDR(.gpt2);
+    _gpt2_start = ADDR(.gpt2);
 
-    .gpt2 (NOLOAD) : ALIGN(4K)
+    .gpt2 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpt2
 
-    _gpio1_start = LOADADDR(.gpio1);
+    _gpio1_start = ADDR(.gpio1);
 
-    .gpio1 (NOLOAD) : ALIGN(4K)
+    .gpio1 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpio1
 
-    _gpio2_start = LOADADDR(.gpio2);
+    _gpio2_start = ADDR(.gpio2);
 
-    .gpio2 (NOLOAD) : ALIGN(4K)
+    .gpio2 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpio2
 
-    _gpio3_start = LOADADDR(.gpio3);
+    _gpio3_start = ADDR(.gpio3);
 
-    .gpio3 (NOLOAD) : ALIGN(4K)
+    .gpio3 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpio3
 
-    _gpio4_start = LOADADDR(.gpio4);
+    _gpio4_start = ADDR(.gpio4);
 
-    .gpio4 (NOLOAD) : ALIGN(4K)
+    .gpio4 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpio4
 
-    _gpio5_start = LOADADDR(.gpio5);
+    _gpio5_start = ADDR(.gpio5);
 
-    .gpio5 (NOLOAD) : ALIGN(4K)
+    .gpio5 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >gpio5
 
-    _ccm_start = LOADADDR(.ccm);
+    _ccm_start = ADDR(.ccm);
 
-    .ccm (NOLOAD) : ALIGN(4K)
+    .ccm (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >ccm
 
-    _analog_start = LOADADDR(.analog);
+    _analog_start = ADDR(.analog);
 
-    .analog (NOLOAD) : ALIGN(4K)
+    .analog (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >analog
 
-    _iomux_start = LOADADDR(.iomux);
+    _iomux_start = ADDR(.iomux);
 
-    .iomux (NOLOAD) : ALIGN(4K)
+    .iomux (NOLOAD) :
     {
         . = . + (16K);
     } >iomux
 
-    _enet1_start = LOADADDR(.enet1);
+    _enet1_start = ADDR(.enet1);
 
-    .enet1 (NOLOAD) : ALIGN(4K)
+    .enet1 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >enet1
 
-    _enet2_start = LOADADDR(.enet2);
+    _enet2_start = ADDR(.enet2);
 
-    .enet2 (NOLOAD) : ALIGN(4K)
+    .enet2 (NOLOAD) :
     {
-        . = . + (16K);
+        . = . + (4K);
     } >enet2
 }
