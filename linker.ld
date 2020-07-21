@@ -223,6 +223,6 @@ SECTIONS
 
     .nvram (NOLOAD) :
     {
-        . = . + (4K);
+        . = . + (128K);
     } >nvram
 }
