@@ -4,6 +4,7 @@ ENTRY(_start)
 
 MEMORY
 {
+    ocram  (rwx) : ORIGIN = 0x00900000, LENGTH = 128K
     gic     (rw) : ORIGIN = 0x00A00000, LENGTH = 32K
     uart    (rw) : ORIGIN = 0x02020000, LENGTH = 16K
     gpt1    (rw) : ORIGIN = 0x02098000, LENGTH = 16K
@@ -16,9 +17,11 @@ MEMORY
     ccm     (rw) : ORIGIN = 0x020C4000, LENGTH = 16K
     analog  (rw) : ORIGIN = 0x020C8000, LENGTH = 16K
     iomux   (rw) : ORIGIN = 0x020E0000, LENGTH = 16K
+    iomux_g (rw) : ORIGIN = 0x020E4000, LENGTH = 16K
     gpt2    (rw) : ORIGIN = 0x020E8000, LENGTH = 16K
     enet1   (rw) : ORIGIN = 0x02188000, LENGTH = 16K
-    ram    (rwx) : ORIGIN = 0x80000000, LENGTH = 0x8000000
+    nvram   (rw) : ORIGIN = 0x50000000, LENGTH = 256K
+    ram    (rwx) : ORIGIN = 0x80000000, LENGTH = 128M
 }
 
 SECTIONS
@@ -104,6 +107,13 @@ SECTIONS
         . = . + (4K);
     } >ram
 
+    _ocram_start = ADDR(.ocram);
+
+    .ocram (NOLOAD) :
+    {
+        . = . + (128K);
+    } >ocram
+
     _gic_start = ADDR(.gic);
 
     .gic (NOLOAD) :
@@ -188,6 +198,13 @@ SECTIONS
         . = . + (16K);
     } >iomux
 
+    _iomux_gpr_start = ADDR(.iomux_g);
+
+    .iomux_g (NOLOAD) :
+    {
+        . = . + (16K);
+    } >iomux_g
+
     _enet1_start = ADDR(.enet1);
 
     .enet1 (NOLOAD) :
@@ -201,4 +218,11 @@ SECTIONS
     {
         . = . + (4K);
     } >enet2
+
+    _nvram_start = ADDR(.nvram);
+
+    .nvram (NOLOAD) :
+    {
+        . = . + (4K);
+    } >nvram
 }
