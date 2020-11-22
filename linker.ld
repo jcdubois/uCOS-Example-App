@@ -27,10 +27,19 @@ MEMORY
 SECTIONS
 {
     /* text/execute section */
-
-    .text :
+    .entry :
     {
         *(.entry*)
+    } > ram
+
+    .ivt (ALIGN(1K)) :
+    {
+        *(.ivt_entry*)
+        *(.ivt*)
+    } > ram
+
+    .text (ALIGN(2K)) :
+    {
         *(.text*)
     } >ram
 
@@ -47,6 +56,8 @@ SECTIONS
     {
         *(.data*);
     } >ram
+
+    _prog_size = ADDR(.data) + SIZEOF(.data) - ADDR(.entry);
 
     /* unintialized read/write data section */
 
