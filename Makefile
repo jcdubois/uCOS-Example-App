@@ -8,6 +8,7 @@ ARCH = ARM-Cortex-A
 SUBARCH = ARMv7-A
 TOOLCHAIN = GNU
 CROSS_COMPILE = arm-linux-gnueabi-
+CROSS_COMPILE = arm-none-eabi-
 PHY = Generic
 MAC = MACNet
 
@@ -82,7 +83,7 @@ LIB_SRC     := $(shell cd $(LIB_ROOT); ls *.c)
 CPU_SRC     := cpu_core.c cpu_a.S
 BSP_SRC     := $(shell cd $(BSP_ROOT)/$(BOARD)/; ls *.c)
 BSP_INT_SRC := bsp_int_armv7a_gicv2.c
-BSP_START_SRC := cstartup.S ivt.c
+BSP_START_SRC := cstartup.S
 DHCP_SRC    := $(shell cd $(DHCP_ROOT); ls *.c)
 DHCP_OS_SRC := $(shell cd $(DHCP_OS_ROOT); ls *.c)
 PRINTF_SRC := $(shell cd $(PRINTF_ROOT); ls *.c)
