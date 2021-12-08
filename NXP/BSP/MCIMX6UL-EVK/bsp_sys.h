@@ -87,24 +87,24 @@ extern  "C" {                                                   /* See Note #1. 
 *********************************************************************************************************
 */
 
-extern char _ccm_start;
+extern volatile char _ccm_start;
 
 #define  BSP_CCM_BASE_ADDR                           (CPU_INT32U)(&_ccm_start)
 #define  BSP_REG_CCM_CACRR                           (BSP_CCM_BASE_ADDR + 0x0010u)
 #define  BSP_REG_CCM_CCGR1                           (BSP_CCM_BASE_ADDR + 0x006Cu)
 
-extern char _analog_start;
+extern volatile char _analog_start;
 
 #define  BSP_CCM_ANALOG_BASE_ADDR                  (CPU_INT32U)(&_analog_start)
 #define  BSP_REG_CCM_ANALOG_PLL_ARM                  (BSP_CCM_ANALOG_BASE_ADDR + 0x0000u)
 #define  BSP_REG_CCM_ANALOG_PLL_SYS                  (BSP_CCM_ANALOG_BASE_ADDR + 0x0030u)
 
 
-extern char _gic_start;
+extern volatile char _gic_start;
 
 #define  BSP_SYS_ARM_MP_BASE_ADDR                    (CPU_INT32U)(&_gic_start)
 
-extern char _gpt1_start;
+extern volatile char _gpt1_start;
 
 #define  BSP_SYS_GPT1_BASE_ADDR                      (CPU_INT32U)(&_gpt1_start)
 #define  BSP_REG_GPT1_CR                             (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0000u)))
@@ -118,7 +118,7 @@ extern char _gpt1_start;
 #define  BSP_REG_GPT1_ICR2                           (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0020u)))
 #define  BSP_REG_GPT1_CNT                            (*((CPU_REG32 *)(BSP_SYS_GPT1_BASE_ADDR + 0x0024u)))
 
-extern char _gpt2_start;
+extern volatile char _gpt2_start;
 
 #define  BSP_SYS_GPT2_BASE_ADDR                      (CPU_INT32U)(&_gpt2_start)
 #define  BSP_REG_GPT2_CR                             (*((CPU_REG32 *)(BSP_SYS_GPT2_BASE_ADDR + 0x0000u)))

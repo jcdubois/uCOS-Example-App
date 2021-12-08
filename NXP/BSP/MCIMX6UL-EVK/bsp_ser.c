@@ -55,7 +55,7 @@
 *********************************************************************************************************
 */
 
-extern char _uart_start;
+extern volatile char _uart_start;
 
 #define  IMX_UART1_BASE ((CPU_ADDR)(&_uart_start))
 

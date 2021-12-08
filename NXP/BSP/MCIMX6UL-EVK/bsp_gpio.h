@@ -84,31 +84,31 @@ extern  "C" {                                                   /* See Note #1. 
 #define  BSP_GPIO_LOW               0u
 #define  BSP_GPIO_HIGH              1u
 
-extern char _gpio1_start;
+extern volatile char _gpio1_start;
 
 #define  BSP_GPIO_1_BASE_ADDR       ((CPU_ADDR)(&_gpio1_start))
 
-extern char _gpio2_start;
+extern volatile char _gpio2_start;
 
 #define  BSP_GPIO_2_BASE_ADDR       ((CPU_ADDR)(&_gpio2_start))
 
-extern char _gpio3_start;
+extern volatile char _gpio3_start;
 
 #define  BSP_GPIO_3_BASE_ADDR       ((CPU_ADDR)(&_gpio3_start))
 
-extern char _gpio4_start;
+extern volatile char _gpio4_start;
 
 #define  BSP_GPIO_4_BASE_ADDR       ((CPU_ADDR)(&_gpio4_start))
 
-extern char _gpio5_start;
+extern volatile char _gpio5_start;
 
 #define  BSP_GPIO_5_BASE_ADDR       ((CPU_ADDR)(&_gpio5_start))
 
-extern char _gpio6_start;
+extern volatile char _gpio6_start;
 
 #define  BSP_GPIO_6_BASE_ADDR       ((CPU_ADDR)(&_gpio6_start))
 
-extern char _gpio7_start;
+extern volatile char _gpio7_start;
 
 #define  BSP_GPIO_7_BASE_ADDR       ((CPU_ADDR)(&_gpio7_start))
 

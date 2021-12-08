@@ -80,7 +80,7 @@ extern  "C" {                                                   /* See Note #1. 
 
                                                                 /* ---------------- IOMUXC RREGISTERS ----------------- */
 
-extern char _iomux_start;
+extern volatile char _iomux_start;
 
 #define  BSP_IOMUC_BASE_ADDR                             (CPU_INT32U)(&_iomux_start)
 
