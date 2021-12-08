@@ -21,8 +21,8 @@ AS=$(CROSS_COMPILE)gcc
 AR=$(CROSS_COMPILE)ar
 LD=$(CROSS_COMPILE)ld
 NM=$(CROSS_COMPILE)nm
-OBJDUMP=$(CROSS_COMPILE)@objdump
-OBJCOPY=$(CROSS_COMPILE)@objcopy
+OBJDUMP=$(CROSS_COMPILE)objdump
+OBJCOPY=$(CROSS_COMPILE)objcopy
 ECHO=@echo
 MKDIR=@mkdir -p
 RMDIR=@rmdir --ignore-fail-on-non-empty
@@ -150,6 +150,7 @@ build: $(OBJS_C) $(OBJS_ASM) $(OBJS_S)
 	$(MKDIR) $(OUTPUT)
 	$(CC) $(LDFLAGS) -o "$(OUTPUT)/$(PROJ_NAME).elf" $(OBJS_ALL) -lm -lgcc
 	$(CP) "$(OUTPUT)/$(PROJ_NAME).elf" "$(PROJ_ROOT)/$(PROJ_NAME).elf"
+	$(OBJCOPY) -O binary $(PROJ_ROOT)/$(PROJ_NAME).elf $(PROJ_ROOT)/$(PROJ_NAME).bin
 	$(ECHO) 'Target $(PROJ_NAME) completed.'
 
 clean:
