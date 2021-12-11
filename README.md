@@ -16,12 +16,14 @@ The first step to build this App is to install the required packages:
 
 **Development tools**
 ```bash
-$ sudo apt-get install make gcc-arm-linux-gnueabi
+$ sudo apt-get install make gcc-arm-none-eabi
 ```
 **Qemu**
 ```bash
 $ sudo apt-get install qemu-system-arm
 ```
+Note: you need a quite recent version of Qemu.
+You might have to recompile it yourself if the version provided in your distribution is too old.
 
 Build
 -----
@@ -29,7 +31,6 @@ Build
 To build this example:
 
 ```bash
-$ cd /app/base/directory/
 $ make
 ```
 
@@ -41,7 +42,7 @@ board. However it does also run inside Qemu.
 
 **Qemu**
 ```bash
-$ qemu-system-arm -machine mcimx6ul-evk -m 128M -display none -serial mon:stdio -kernel ./OS.elf
+$ qemu-system-arm -machine mcimx6ul-evk -m 128M -display none -serial /dev/null -serial -dev/null -serial mon:stdio -kernel ./OS.elf
 ```
 
 References
