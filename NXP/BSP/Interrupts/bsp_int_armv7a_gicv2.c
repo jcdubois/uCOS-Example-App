@@ -44,6 +44,9 @@
 #include  "bsp_int.h"
 #include  "bsp_sys.h"
 
+#ifdef DEBUG
+#include  "printf.h"
+#endif
 
 /*
 *********************************************************************************************************
@@ -490,6 +493,9 @@ void  BSP_IntHandler (void)
     int_id  = int_ack & DEF_BIT_FIELD(10u, 0u);                 /* Mask away the CPUID.                                 */
 
     if (int_id == 1023u) {                                      /* Spurious interrupt.                                  */
+#ifdef DEBUG
+        printf("spurious int %d\n", int_id);
+#endif
         return;
     }
 
@@ -498,7 +504,22 @@ void  BSP_IntHandler (void)
     p_isr   = BSP_IntVectTbl[int_id];                           /* Fetch ISR handler.                                   */
 
     if (p_isr != DEF_NULL) {
+#ifdef DEBUG
+       if (int_id != 87) {
+          printf("calling %p for int %d\n", p_isr, int_id);
+       } else {
+	  static int count = 0;
+	  count = (count + 1) % 1000;
+	  if (count == 1) {
+             printf("1000 interrupt %d\n", int_id);
+	  }
+       }
+#endif
        (*p_isr)(int_cpu);                                       /* Call ISR handler.                                    */
+#ifdef DEBUG
+    } else {
+       printf("no isr for int %d\n", int_id);
+#endif
     }
 
     CPU_MB();                                                   /* Memory barrier before ending the interrupt.          */

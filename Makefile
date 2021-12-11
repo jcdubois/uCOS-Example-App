@@ -7,7 +7,6 @@ BOARD = MCIMX6UL-EVK
 ARCH = ARM-Cortex-A
 SUBARCH = ARMv7-A
 TOOLCHAIN = GNU
-CROSS_COMPILE = arm-linux-gnueabi-
 CROSS_COMPILE = arm-none-eabi-
 PHY = Generic
 MAC = MACNet
@@ -59,6 +58,7 @@ OUTPUT = $(PROJ_ROOT)/output
 ###############################################################################
 
 CFLAGS    = -g -Os -Wall -Werror -mcpu=cortex-a7 -fno-stack-protector -nostdlib -fno-builtin -fno-mudflap -U_FORTIFY_SOURCE
+CFLAGS   += -DDEBUG
 CINCLUDES = -I$(APP_ROOT) -I$(OS_ROOT) -I$(OS_PORT_ROOT)/$(TOOLCHAIN)
 CINCLUDES += -I$(CPU_ROOT) -I$(CPU_ROOT)/$(ARCH)/$(SUBARCH)/$(TOOLCHAIN)
 CINCLUDES += -I$(APP_ROOT)/.. -I$(LIB_ROOT) -I$(IP_ROOT)/.. -I$(OS_ROOT)/..
