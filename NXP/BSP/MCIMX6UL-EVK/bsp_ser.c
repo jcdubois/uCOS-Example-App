@@ -154,6 +154,33 @@ void  BSP_Ser_Init (void)
 
 /*
 *********************************************************************************************************
+*                                          BSP_Ser_WrByteUnlocked()
+*
+* Description : Writes a single byte to a serial port.
+*
+* Argument(s) : c           The character to output.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : BSP_Ser_WrByte()
+*               BSP_Ser_WrByteUnlocked()
+*
+* Note(s)     : (1) This function blocks until room is available in the UART for the byte to be sent.
+*********************************************************************************************************
+*/
+
+static void  BSP_Ser_WrByteUnlocked(CPU_INT08U  c)
+{
+    while (DEF_BIT_IS_SET(IMX6_UART_UART1_UTS, DEF_BIT_04)) {
+        ;
+    }
+
+    IMX6_UART_UART1_UCTX = c;
+}
+
+
+/*
+*********************************************************************************************************
 *                                                BSP_Ser_WrByte()
 *
 * Description : Writes a single byte to a serial port.
@@ -175,40 +202,9 @@ void  BSP_Ser_WrByte(CPU_INT08U  c)
 
     KAL_SemPend(BSP_SerLock, 0u, 0u, &rtos_err);
 
-    while (DEF_BIT_IS_SET(IMX6_UART_UART1_UTS, DEF_BIT_13)) {
-        ;
-    }
-
-    IMX6_UART_UART1_UCTX = c;
+    BSP_Ser_WrByteUnlocked(c);
 
     KAL_SemPost(BSP_SerLock, 0u, &rtos_err);
-}
-
-
-/*
-*********************************************************************************************************
-*                                          BSP_Ser_WrByteUnlocked()
-*
-* Description : Writes a single byte to a serial port.
-*
-* Argument(s) : c           The character to output.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : BSP_Ser_WrByte()
-*               BSP_Ser_WrByteUnlocked()
-*
-* Note(s)     : (1) This function blocks until room is available in the UART for the byte to be sent.
-*********************************************************************************************************
-*/
-
-void  BSP_Ser_WrByteUnlocked(CPU_INT08U  c)
-{
-    while (DEF_BIT_IS_SET(IMX6_UART_UART1_UTS, DEF_BIT_04)) {
-        ;
-    }
-
-    IMX6_UART_UART1_UCTX = c;
 }
 
 
