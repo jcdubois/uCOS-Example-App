@@ -90,12 +90,10 @@ _reset:
  *                    STACK POINTER INITIALIZATION
  ****************************************************************************/
 
-    /* Disable IRQ & FIQ */
-    cpsid if
+    cpsid if                        /* Disable IRQ & FIQ */
 
-    /* Set the exception vector (VBAR) */
     ldr r0, __start_vect
-    mcr p15, 0, r0, c12, c0, 0
+    mcr p15, 0, r0, c12, c0, 0      /* Set the exception vector (VBAR) */
 
     /* MMU, L1$ disable */
     mrc p15, 0, r0, c1, c0, 0       /* Read System Control Register (SCTLR) */
@@ -117,7 +115,7 @@ _reset:
     mrc p15, 0, r0, c1, c0, 0       /* System control register */
     orr r0, r0, #1 << 12            /* Instruction cache enable */
     orr r0, r0, #1 << 11            /* Program flow prediction */
-    mcr p15, 0, r0, c1, c0, 0       /* System control register */
+    mcr p15, 0, r0, c1, c0, 0       /* Write System Control Register (SCTLR) */
 
     /* load supervisor stack */
     cps #CPSR_MODE_SUPERVISOR

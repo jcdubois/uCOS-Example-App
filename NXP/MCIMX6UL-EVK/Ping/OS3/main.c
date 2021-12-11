@@ -62,6 +62,10 @@
 #include  <bsp_int.h>
 #include  <bsp_ser.h>
 
+#ifdef DEBUG
+#include "printf.h"
+#endif
+
 
 /*
 *********************************************************************************************************
@@ -99,6 +103,15 @@ void _putchar(char character)
 	BSP_Ser_WrByte(character);
 }
 
+#ifdef DEBUG
+static CPU_INT32U  SCTRL_read (void)
+{
+    CPU_INT32U sctrl;
+    __asm__ __volatile__("mrc p15, 0, %0, c1, c0, 0 \n" : "=r"(sctrl));
+    return sctrl;
+}
+#endif
+
 /*
 *********************************************************************************************************
 *                                                main()
@@ -132,6 +145,10 @@ int main(void)
     }
 
     App_OS_SetAllHooks();
+
+#ifdef DEBUG
+    printf("SCTRL = 0x%08x\n", SCTRL_read());
+#endif
 
     OSTaskCreate(&StartupTaskTCB,                               /* Create the start task                                */
                  "Startup Task",

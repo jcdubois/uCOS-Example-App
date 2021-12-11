@@ -90,6 +90,7 @@ PRINTF_SRC := $(shell cd $(PRINTF_ROOT); ls *.c)
 COMMON_SRC  := kal.c
 
 OBJS_C      :=$(addprefix $(OS_ROOT)/,  $(patsubst %.c,%.o,$(filter %.c,$(OS_SRC))))   \
+              $(addprefix $(APP_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(APP_SRC))))  \
               $(addprefix $(OS_PORT_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(OS_PORT_SRC))))  \
               $(addprefix $(IP_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(IP_SRC))))  \
               $(addprefix $(PHY_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(PHY_SRC))))  \
@@ -106,8 +107,7 @@ OBJS_C      :=$(addprefix $(OS_ROOT)/,  $(patsubst %.c,%.o,$(filter %.c,$(OS_SRC
               $(addprefix $(DHCP_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(DHCP_SRC))))  \
               $(addprefix $(DHCP_OS_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(DHCP_OS_SRC))))  \
               $(addprefix $(PRINTF_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(PRINTF_SRC))))  \
-              $(addprefix $(BSP_ROOT)/Startup/MCIMX6G2/$(TOOLCHAIN)/, $(patsubst %.c,%.o,$(filter %.c,$(BSP_START_SRC))))  \
-              $(addprefix $(APP_ROOT)/, $(patsubst %.c,%.o,$(filter %.c,$(APP_SRC))))
+              $(addprefix $(BSP_ROOT)/Startup/MCIMX6G2/$(TOOLCHAIN)/, $(patsubst %.c,%.o,$(filter %.c,$(BSP_START_SRC)))) 
 OBJS_S      :=$(addprefix $(OS_ROOT)/,  $(patsubst %.S,%.o,$(filter %.S,$(OS_SRC))))   \
               $(addprefix $(OS_PORT_ROOT)/$(TOOLCHAIN)/, $(patsubst %.S,%.o,$(filter %.S,$(OS_PORT_SRC))))  \
               $(addprefix $(CPU_ROOT)/$(ARCH)/$(SUBARCH)/$(TOOLCHAIN)/, $(patsubst %.S,%.o,$(filter %.S,$(CPU_SRC))))  \
