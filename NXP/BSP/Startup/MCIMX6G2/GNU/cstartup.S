@@ -97,6 +97,26 @@ _reset:
     ldr r0, __start_vect
     mcr p15, 0, r0, c12, c0, 0
 
+    /* MMU, L1$ disable */
+    mrc p15, 0, r0, c1, c0, 0           /* Read System Control Register (SCTLR) */
+    bic r0, r0, #1                      /* mmu off */
+    bic r0, r0, #(1 << 12)              /* i-cache off */
+    bic r0, r0, #(1 << 2)               /* d-cache & L2-$ off */
+    mcr p15, 0, r0, c1, c0, 0           /* Write System Control Register (SCTLR) */
+
+    /* invalidate: L1$, TLB, branch predictor */
+    mov     r0, #0
+    mcr     p15, 0, r0, c7, c5, 0       /* Invalidate Instruction Cache */
+    mcr     p15, 0, r0, c7, c5, 6       /* Invalidate branch prediction array */
+    mcr     p15, 0, r0, c8, c7, 0       /* Invalidate entire Unified Main TLB */
+    ISB                                 /* instr sync barrier */
+
+    /* Enable I cache + branch prediction */
+    mrc     p15, 0, r0, c1, c0, 0       /* System control register */
+    orr     r0, r0, #1 << 12            /* Instruction cache enable */
+    orr     r0, r0, #1 << 11            /* Program flow prediction */
+    mcr     p15, 0, r0, c1, c0, 0       /* System control register */
+
     /* load supervisor stack */
     cps #CPSR_MODE_SUPERVISOR
     ldr sp, __svc_stack_end
