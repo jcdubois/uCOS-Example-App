@@ -47,6 +47,7 @@
 #include  "bsp_int.h"
 #include  "bsp_os.h"
 
+#include  "printf.h"
 
 /*
 *********************************************************************************************************
@@ -259,6 +260,7 @@ void  OS_CPU_ExceptHndlr (CPU_INT32U  except_id)
         case OS_CPU_ARM_EXCEPT_PREFETCH_ABORT:
         case OS_CPU_ARM_EXCEPT_ADDR_ABORT:
         default:
+             printf("Exception %d\n", except_id);
              while (DEF_TRUE) {                                 /* See Note #1.                                              */
                  ;
              }
