@@ -510,7 +510,7 @@ void  BSP_IntHandler (void)
        } else {
 	  static int count = 0;
 	  count = (count + 1) % 1000;
-	  if (count == 1) {
+	  if (count == 0) {
              printf("1000 interrupt %d\n", int_id);
 	  }
        }
