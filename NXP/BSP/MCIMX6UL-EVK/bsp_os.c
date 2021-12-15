@@ -256,14 +256,61 @@ void  OS_CPU_ExceptHndlr (CPU_INT32U  except_id)
 
 
         case OS_CPU_ARM_EXCEPT_RESET:
+#ifdef DEBUG
+             printf("Reset Exception %d\n", except_id);
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         case OS_CPU_ARM_EXCEPT_UNDEF_INSTR:
+#ifdef DEBUG
+             printf("Undefined Instruction Exception %d\n", except_id);
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         case OS_CPU_ARM_EXCEPT_SWI:
+#ifdef DEBUG
+             printf("SWI Exception %d\n", except_id);
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         case OS_CPU_ARM_EXCEPT_DATA_ABORT:
+#ifdef DEBUG
+	     {
+	        unsigned int dfsr = 0;
+                printf("Data Abort Exception %d\n", except_id);
+	        __asm__ __volatile__ ("mrc p15, 0, %0, c5, c0, 0 \n" : "=r" (dfsr));
+	        printf("DFSR = 0x%08x\n", dfsr);
+	     }
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         case OS_CPU_ARM_EXCEPT_PREFETCH_ABORT:
+#ifdef DEBUG
+             printf("Prefetch Abort Exception %d\n", except_id);
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         case OS_CPU_ARM_EXCEPT_ADDR_ABORT:
+#ifdef DEBUG
+             printf("Address Abort Exception %d\n", except_id);
+#endif
+             while (DEF_TRUE) {                                 /* See Note #1.                                              */
+                 ;
+             }
+             break;
         default:
 #ifdef DEBUG
-             printf("Exception %d\n", except_id);
+             printf("Unknown Exception %d\n", except_id);
 #endif
              while (DEF_TRUE) {                                 /* See Note #1.                                              */
                  ;
