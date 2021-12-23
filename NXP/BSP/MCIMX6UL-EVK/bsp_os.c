@@ -284,10 +284,10 @@ void  OS_CPU_ExceptHndlr (CPU_INT32U  except_id)
              {
                 unsigned int dfsr = 0;
                 unsigned int dfar = 0;
-                printf("Data Abort Exception %d\n", except_id);
                 __asm__ __volatile__ ("mrc p15, 0, %0, c5, c0, 0 \n" : "=r" (dfsr));
-                printf("DFSR = 0x%08x\n", dfsr);
                 __asm__ __volatile__ ("mrc p15, 0, %0, c6, c0, 0 \n" : "=r" (dfar));
+                printf("Data Abort Exception %d\n", except_id);
+                printf("DFSR = 0x%08x\n", dfsr);
                 printf("DFAR = 0x%08x\n", dfar);
              }
 #endif
@@ -299,9 +299,12 @@ void  OS_CPU_ExceptHndlr (CPU_INT32U  except_id)
 #ifdef DEBUG
              {
                 unsigned int ifsr = 0;
-                printf("Prefetch Abort Exception %d\n", except_id);
+                unsigned int ifar = 0;
                 __asm__ __volatile__ ("mrc p15, 0, %0, c5, c0, 1 \n" : "=r" (ifsr));
+                __asm__ __volatile__ ("mrc p15, 0, %0, c6, c0, 2 \n" : "=r" (ifar));
+                printf("Prefetch Abort Exception %d\n", except_id);
                 printf("IFSR = 0x%08x\n", ifsr);
+                printf("IFAR = 0x%08x\n", ifar);
              }
 #endif
              while (DEF_TRUE) {                                 /* See Note #1.                                              */
