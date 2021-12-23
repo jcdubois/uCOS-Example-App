@@ -145,7 +145,7 @@ OBJS_ALL    :=$(addprefix $(OUTPUT)/obj/,$(notdir $(OBJS_C)) $(notdir $(OBJS_S))
 
 all: build
 
-build: $(OBJS_C) $(OBJS_ASM) $(OBJS_S)
+build: $(OBJS_C) $(OBJS_S)
 	$(ECHO) '$(PROC)/GNU C Linker building target $(PROJ_NAME)'
 	$(MKDIR) $(OUTPUT)
 	$(CC) $(LDFLAGS) -o "$(OUTPUT)/$(PROJ_NAME).elf" $(OBJS_ALL) -lm -lgcc
