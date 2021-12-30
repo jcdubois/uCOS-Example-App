@@ -6,7 +6,7 @@ MEMORY
 {
     ocram  (rwx) : ORIGIN = 0x00900000, LENGTH = 128K
     gic     (rw) : ORIGIN = 0x00A00000, LENGTH = 32K
-    uart    (rw) : ORIGIN = 0x021EC000, LENGTH = 16K
+    uart    (rw) : ORIGIN = 0x02020000, LENGTH = 16K
     gpt1    (rw) : ORIGIN = 0x02098000, LENGTH = 16K
     gpio1   (rw) : ORIGIN = 0x0209C000, LENGTH = 16K
     gpio2   (rw) : ORIGIN = 0x020A0000, LENGTH = 16K
