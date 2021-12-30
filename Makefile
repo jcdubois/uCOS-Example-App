@@ -126,12 +126,6 @@ OBJS_ALL    :=$(addprefix $(OUTPUT)/obj/,$(notdir $(OBJS_C)) $(notdir $(OBJS_S))
 	$(MKDIR) $(OUTPUT)/lst	
 	$(CC) -c $(CFLAGS) $(CINCLUDES) -Wa,-alh="$(OUTPUT)/lst/$(notdir $(patsubst %.c,%.lst,$<))",$(AINCLUDES) -o "$(OUTPUT)/obj/$(notdir $@)" "$<"
 
-%.o: %.asm
-	$(ECHO) '$(PROC)/GNU ASM Compiler building $(notdir $<)'
-	$(MKDIR) $(OUTPUT)
-	$(MKDIR) $(OUTPUT)/obj
-	$(AS) $(ASFLAGS) $(AINCLUDES) -o "$(OUTPUT)/obj/$(notdir $@)" "$<"
-
 %.o: %.S
 	$(ECHO) '$(PROC)/GNU C (ASM Pre-processing) Compiler building $(notdir $<)'
 	$(MKDIR) $(OUTPUT)
