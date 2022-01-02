@@ -333,17 +333,17 @@ extern  const  NET_TASK_CFG  NetTmrTaskCfg;
 */
 
                                                                 /* Configure IPv6.                                      */
-#define  NET_IPv6_CFG_EN                        DEF_ENABLED
+#define  NET_IPv6_CFG_EN                        DEF_DISABLED
                                                                 /*   DEF_DISABLED    IPv6 disabled.                     */
                                                                 /*   DEF_ENABLED     IPv6 enabled.                      */
 
                                                                 /* Configure IPv6 Stateless Address Auto-Configuration. */
-#define  NET_IPv6_CFG_ADDR_AUTO_CFG_EN          DEF_ENABLED
+#define  NET_IPv6_CFG_ADDR_AUTO_CFG_EN          DEF_DISABLED
                                                                 /*   DEF_DISABLED    IPv6 Auto-Cfg disabled.            */
                                                                 /*   DEF_ENABLED     IPv6 Auto-Cfg enabled.             */
 
                                                                 /* Configure IPv6 Duplication Address Detection (DAD).  */
-#define  NET_IPv6_CFG_DAD_EN                    DEF_ENABLED
+#define  NET_IPv6_CFG_DAD_EN                    DEF_DISABLED
                                                                 /*   DEF_DISABLED    IPv6 DAD disabled.                 */
                                                                 /*   DEF_ENABLED     IPv6 DAD enabled.                  */
 
