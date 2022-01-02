@@ -505,14 +505,8 @@ void  BSP_IntHandler (void)
 
     if (p_isr != DEF_NULL) {
 #ifdef DEBUG
-       if (int_id != 87) {
+       if (int_id != 87) { /* don't print debug for timer */
           printf("calling %p for int %d\n", p_isr, int_id);
-       } else {
-	  static int count = 0;
-	  count = (count + 1) % 1000;
-	  if (count == 0) {
-             printf("1000 interrupt %d\n", int_id);
-	  }
        }
 #endif
        (*p_isr)(int_cpu);                                       /* Call ISR handler.                                    */
