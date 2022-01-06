@@ -50,42 +50,42 @@ SECTIONS
     /* User stack */
     .user_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_user_stack_end = .);
     } >ram
 
     /* Supervisor stack */
     .svc_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_svc_stack_end = .);
     } >ram
 
     /* Abort stack */
     .abt_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_abt_stack_end = .);
     } >ram
 
     /* Undefined stack */
     .und_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_und_stack_end = .);
     } >ram
 
     /* IRQ stack */
     .irq_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_irq_stack_end = .);
     } >ram
 
     /* FIQ stack */
     .fiq_stack (ALIGN(4K) + (4K)) (NOLOAD) :
     {
-        . = . + (4K);
+        . += (4K);
 	PROVIDE(_fiq_stack_end = .);
     } >ram
 
@@ -103,104 +103,102 @@ SECTIONS
     .ocram (NOLOAD) :
     {
         PROVIDE(_ocram_start = .);
-        . = . + (128K);
+        . += (128K);
     } >ocram
 
     .gic (NOLOAD) :
     {
         PROVIDE(_gic_start = .);
-        . = . + (32K);
+        . += (32K);
     } >gic
 
     .uart (NOLOAD) :
     {
         PROVIDE(_uart_start = .);
-        . = . + (4K);
+        . += (4K);
     } >uart
 
     .gpt1 (NOLOAD) :
     {
         PROVIDE(_gpt1_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpt1
 
     .gpt2 (NOLOAD) :
     {
         PROVIDE(_gpt2_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpt2
-
-    _gpio1_start = ADDR(.gpio1);
 
     .gpio1 (NOLOAD) :
     {
         PROVIDE(_gpio1_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpio1
 
     .gpio2 (NOLOAD) :
     {
         PROVIDE(_gpio2_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpio2
 
     .gpio3 (NOLOAD) :
     {
         PROVIDE(_gpio3_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpio3
 
     .gpio4 (NOLOAD) :
     {
         PROVIDE(_gpio4_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpio4
 
     .gpio5 (NOLOAD) :
     {
         PROVIDE(_gpio5_start = .);
-        . = . + (4K);
+        . += (4K);
     } >gpio5
 
     .ccm (NOLOAD) :
     {
         PROVIDE(_ccm_start = .);
-        . = . + (4K);
+        . += (4K);
     } >ccm
 
     .analog (NOLOAD) :
     {
         PROVIDE(_analog_start = .);
-        . = . + (4K);
+        . += (4K);
     } >analog
 
     .iomux (NOLOAD) :
     {
         PROVIDE(_iomux_start = .);
-        . = . + (16K);
+        . += (16K);
     } >iomux
 
     .iomux_g (NOLOAD) :
     {
         PROVIDE(_iomux_gpr_start = .);
-        . = . + (16K);
+        . += (16K);
     } >iomux_g
 
     .enet1 (NOLOAD) :
     {
         PROVIDE(_enet1_start = .);
-        . = . + (4K);
+        . += (4K);
     } >enet1
 
     .enet2 (NOLOAD) :
     {
         PROVIDE(_enet2_start = .);
-        . = . + (4K);
+        . += (4K);
     } >enet2
 
     .nvram (NOLOAD) :
     {
         PROVIDE(_nvram_start = .);
-        . = . + (128K);
+        . += (128K);
     } >nvram
 }
