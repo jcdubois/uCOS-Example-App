@@ -36,13 +36,9 @@
 */
 
 #include  <stdint.h>
-#include  <string.h>
 #include  <stdarg.h>
-#include  <stdio.h>
 
-//#include  "../include/bsp.h"
 #include  "bsp_ser.h"
-//#include  "../include/imx_defs.h"
 
 #include  <lib_def.h>
 #include  <os.h>
