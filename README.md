@@ -31,6 +31,7 @@ Build
 To build this example:
 
 ```bash
+$ git submodule update --init --remote --recursive
 $ make
 ```
 
